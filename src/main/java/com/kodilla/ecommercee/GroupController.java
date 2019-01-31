@@ -9,17 +9,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
 @RequestMapping("/groups")
 public class GroupController {
 
+    private final GroupMapper groupMapper;
+
     @Autowired
-    private GroupMapper groupMapper;
-//
-//    @Autowired
-//    private GroupService groupService;
+    public GroupController(GroupMapper groupMapper) {
+        this.groupMapper = groupMapper;
+    }
 
     @GetMapping(value = "getGroups")
     public List<GroupDto> getGroups() {
@@ -34,21 +33,18 @@ public class GroupController {
         return groups;
     }
 
-    @PostMapping(value = "addGroup", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "addGroup")
     public Group addGroup(@RequestBody GroupDto groupDto) {
-        // groupService.saveGroup(groupMapper.mapToGroup(groupDto));
         return groupMapper.mapToGroup(groupDto);
     }
 
     @GetMapping(value = "id/{id}")
     public GroupDto getById(@PathVariable("id") long id) {
-        // return groupMapper.mapToGroupDto(groupService.getById(id));
         return new GroupDto(id, ("Test id -> " + id));
     }
 
-    @PostMapping(value = "update", consumes = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "update")
     public String update(@RequestBody GroupDto groupDto) {
-        // groupService.update(groupMapper.mapToGroup(groupDto));
         return "Updated ->" + groupDto.getName();
     }
 
