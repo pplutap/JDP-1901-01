@@ -1,13 +1,16 @@
 package com.kodilla.ecommercee;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto {
     private Long id;
     private String value;
+
+    public OrderDto(Long id, String value) {
+        this.id = id;
+        this.value = value;
+    }
 }
