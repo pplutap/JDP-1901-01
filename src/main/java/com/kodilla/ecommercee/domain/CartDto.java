@@ -1,16 +1,32 @@
 package com.kodilla.ecommercee.domain;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.util.Map;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
 public class CartDto {
     private long Id;
     private Map<Long, Integer> productsInCart;
+
+    public CartDto(long id, Map<Long, Integer> productsInCart) {
+        Id = id;
+        this.productsInCart = productsInCart;
+    }
+
+    public CartDto() {
+    }
+
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
+
+    public Map<Long, Integer> getProductsInCart() {
+        return productsInCart;
+    }
+
+    public void setProductsInCart(Map<Long, Integer> productsInCart) {
+        this.productsInCart = productsInCart;
+    }
 }
