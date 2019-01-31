@@ -18,7 +18,7 @@ public class OrderMapper {
 
     public List<OrderDto> mapToOrderDtoList(final List<GenericEntity> orderList) {
         return orderList.stream()
-                .map(e->new OrderDto(e.getId(), e.getValue()))
+                .map(e -> new OrderDto(e.getId(), e.getValue()))
                 .collect(Collectors.toList());
     }
 

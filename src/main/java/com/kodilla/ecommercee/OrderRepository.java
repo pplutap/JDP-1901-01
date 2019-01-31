@@ -12,5 +12,5 @@ public interface OrderRepository extends CrudRepository<GenericEntity, Long> {
     List<GenericEntity> findAll();
 
     @Override
-    GenericEntity save(GenericEntity task);
+    GenericEntity save(GenericEntity order);
 }
