@@ -26,12 +26,18 @@ public class OrderController {
 
     @GetMapping(value="getOrders")
     public List<OrderDto> getOrders() {
-        return new ArrayList<>();
+
+        List<OrderDto> list = new ArrayList<>();
+        list.add(new OrderDto(2L, "test 2"));
+        list.add(new OrderDto(3L, "test 3"));
+
+
+        return list;
     }
 
     @GetMapping(value="getOrder/{id}")
     public OrderDto getOrder(@PathVariable("id") Long orderId) {
-        return new OrderDto();
+        return new OrderDto(1L, "test value");
     }
 
     @PostMapping(value="addOrder", consumes = APPLICATION_JSON_VALUE)
