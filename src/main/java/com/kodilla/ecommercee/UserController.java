@@ -9,8 +9,8 @@ import java.util.Random;
 public class UserController {
     private long key;
 
-    @PostMapping("createUser")
-    public UserDto createUser(@RequestBody UserDto userDto) {
+    @PostMapping("addUser")
+    public UserDto addUser(@RequestBody UserDto userDto) {
         return userDto;
     }
 
