@@ -2,10 +2,7 @@ package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.domain.CartDto;
 import com.kodilla.ecommercee.mapper.CartMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,15 +10,18 @@ import java.util.Map;
 @RestController
 @RequestMapping("/V1/cart")
 public class CartController {
-    @Autowired
-    private CartMapper cartMapper;
+    private final CartMapper cartMapper;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getProductsInCart")
+    public CartController(CartMapper cartMapper) {
+        this.cartMapper = cartMapper;
+    }
+
+    @GetMapping(value = "getProductsInCart")
     public Map<Long, Integer> getProductsInCart(long cartId) throws CartNotFoundException {
         return new HashMap<Long, Integer>();
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "updateCart")
+    @PutMapping(value = "updateCart")
     public CartDto updateCart(CartDto cartDto, long productId, int quantity) {
         Map<Long, Integer> productsInCart = new HashMap<>(2, 5);
         return new CartDto(1L, productsInCart);
@@ -32,12 +32,12 @@ public class CartController {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "orderProducts")
+    @PostMapping(value = "orderProducts")
     public void orderProducts() {
 
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createCart")
+    @PostMapping(value = "createCart")
     public void createCart() {
 
     }
