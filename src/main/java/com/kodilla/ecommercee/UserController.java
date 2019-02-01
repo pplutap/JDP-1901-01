@@ -1,14 +1,18 @@
 package com.kodilla.ecommercee;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private long key;
-
     @PostMapping("addUser")
     public UserDto addUser(@RequestBody UserDto userDto) {
         return userDto;
@@ -20,9 +24,9 @@ public class UserController {
     }
 
     @GetMapping("generateKey")
-    public String generateKey(@RequestParam long userId) {
-        key = new Random().nextLong();
-        return String.valueOf(key + userId);
+    public Long generateKey(@RequestParam long userId) {
+        long key = new Random().nextLong();
+        return key + userId;
     }
 
 }
