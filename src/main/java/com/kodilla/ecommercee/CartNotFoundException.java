@@ -1,4 +1,8 @@
 package com.kodilla.ecommercee;
 
-public class CartNotFoundException extends Exception {
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(code = HttpStatus.NOT_FOUND)
+public class CartNotFoundException extends RuntimeException {
 }
