@@ -1,6 +1,5 @@
 package com.kodilla.ecommercee;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
@@ -10,26 +9,20 @@ import java.util.Random;
 public class UserController {
     private long key;
 
-    private UserMapper userMapper;
-
-    @Autowired
-    public UserController(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
-
     @PostMapping("createUser")
-    public User createUser(@RequestBody UserDto userDto) {
-        return userMapper.mapToUser(userDto);
+    public UserDto createUser(@RequestBody UserDto userDto) {
+        return userDto;
     }
 
-    @GetMapping("banUser")
-    public void banUser(Long userId) {
-
+    @PutMapping("banUser")
+    public UserDto banUser(@RequestBody UserDto userDto) {
+        return new UserDto(userDto.getId(), userDto.getUsername(), "-1", userDto.getUserKey());
     }
 
     @GetMapping("generateKey")
-    public Long generateKey() {
-        return key = new Random().nextLong();
+    public String generateKey(@RequestParam long userId) {
+        key = new Random().nextLong();
+        return String.valueOf(key + userId);
     }
 
 }
