@@ -17,28 +17,29 @@ public class CartController {
     }
 
     @GetMapping(value = "getProductsInCart")
-    public Map<Long, Integer> getProductsInCart(long cartId) throws CartNotFoundException {
-        return new HashMap<Long, Integer>();
+    public CartDto getProductsInCart(long cartId) throws CartNotFoundException {
+        return new CartDto(cartId, new HashMap<>());
     }
 
     @PutMapping(value = "updateCart")
-    public CartDto updateCart(CartDto cartDto, long productId, int quantity) {
-        Map<Long, Integer> productsInCart = new HashMap<>(2, 5);
-        return new CartDto(1L, productsInCart);
+    public CartDto updateCart(long cartId, long productId, int quantity) {
+        Map<Long, Integer> productsInCartQuantity = new HashMap<>();
+        productsInCartQuantity.put(productId, quantity);
+        return new CartDto(cartId, productsInCartQuantity);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductFromCart")
-    public void deleteProductFromCart(long cartId, long productId) {
+    @DeleteMapping(value = "removeProductFromCart")
+    public void removeProductFromCart(long cartId, long productId) {
 
     }
 
-    @PostMapping(value = "orderProducts")
-    public void orderProducts() {
-
+    @PostMapping(value = "createOrder")
+    public OrderDto createOrder(Long cartId) {
+        return new OrderDto(cartId, "order contains productsId from cart and their quantity");
     }
 
     @PostMapping(value = "createCart")
-    public void createCart() {
-
+    public CartDto createCart() {
+        return new CartDto(1, new HashMap<>());
     }
 }
