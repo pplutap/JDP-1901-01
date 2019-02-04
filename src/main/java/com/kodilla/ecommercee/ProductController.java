@@ -1,6 +1,13 @@
 package com.kodilla.ecommercee;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,28 +16,32 @@ import java.util.List;
 @RequestMapping("/products")
 public class ProductController {
 
-    @RequestMapping(method = RequestMethod.GET, value = "getProducts")
+    @GetMapping(value = "getProducts")
     public List<ProductDto> getProducts() {
-        return new ArrayList<>();
+        List<ProductDto> products = new ArrayList<>();
+        products.add(new ProductDto(4L, "test name 3", "test description 3", 19.32, 43L));
+        products.add(new ProductDto(8L, "test name 4", "test description 4", 424.12, 23L));
+
+        return products;
     }
 
-    @GetMapping(value = "getProduct")
-    public ProductDto getProduct( Long productId) {
+    @GetMapping(value = "getProduct/{id}")
+    public ProductDto getProduct(@PathVariable("id") Long productId) {
         return new ProductDto(1L, "test name", "test description", 9.99, 2L);
     }
 
-    @PostMapping(value = "createProduct")
-    public void createProduct(ProductDto productDto) {
+    @PostMapping(value = "addProduct")
+    public void addProduct(@RequestBody ProductDto productDto) {
 
     }
 
     @PutMapping(value = "updateProduct")
-    public ProductDto updateProduct(ProductDto productDto) {
-        return new ProductDto(2L, "test name 2", "test description 2", 99.99, 12L);
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+        return productDto;
     }
 
-    @DeleteMapping(value = "deleteProduct")
-    public void deleteProduct(Long productId) {
+    @DeleteMapping(value = "deleteProduct/{id}")
+    public void deleteProduct(@PathVariable("id") Long productId) {
 
     }
 }
