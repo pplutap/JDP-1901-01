@@ -1,5 +1,7 @@
-package com.kodilla.ecommercee;
+package com.kodilla.ecommercee.mapper;
 
+import com.kodilla.ecommercee.GenericEntity;
+import com.kodilla.ecommercee.domain.dto.OrderDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
