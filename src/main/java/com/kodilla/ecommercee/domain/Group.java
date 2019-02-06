@@ -5,43 +5,40 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "GROUPS")
+@Entity(name = "PRODUCTS_GROUPS")
 public class Group {
     private long id;
     private String name;
-    private Set<Product> productsInGroup = new HashSet<>();
+    private Set<Product> products = new HashSet<>();
 
-    public Group(long id, String name, Set<Product> productsInGroup) {
+    public Group(long id, String name, Set<Product> products) {
         this.id = id;
         this.name = name;
-        this.productsInGroup = productsInGroup;
+        this.products = products;
     }
 
     public Group() {}
 
     @Id
     @NotNull
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID", unique = true)
     public long getId() {
         return id;
     }
 
-    @NotNull
-    @Column(name = "GROUP_NAME", unique = true)
+    @Column(name = "GROUP_NAME")
     public String getName() {
         return name;
     }
 
     @OneToMany(
             targetEntity = Product.class,
-            mappedBy = "productsInGroup",
-            cascade = CascadeType.ALL,
+            mappedBy = "group",
             fetch = FetchType.LAZY
     )
-    public Set<Product> getProductsInGroup() {
-        return productsInGroup;
+    public Set<Product> getProducts() {
+        return products;
     }
 
     private void setId(long id) {
@@ -52,7 +49,7 @@ public class Group {
         this.name = name;
     }
 
-    private void setProductsInGroup(Set<Product> productsInGroup) {
-        this.productsInGroup = productsInGroup;
+    private void setProducts(Set<Product> products) {
+        this.products = products;
     }
 }
