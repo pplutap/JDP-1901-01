@@ -27,7 +27,8 @@ public class Group {
         return id;
     }
 
-    @Column(name = "GROUP_NAME")
+    @NotNull
+    @Column(name = "GROUP_NAME", unique = true)
     public String getName() {
         return name;
     }
@@ -35,6 +36,7 @@ public class Group {
     @OneToMany(
             targetEntity = Product.class,
             mappedBy = "group",
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
     public Set<Product> getProducts() {
