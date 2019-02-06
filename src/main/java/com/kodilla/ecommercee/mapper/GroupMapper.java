@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class GroupMapper {
 
     public Group mapToGroup(GroupDto groupDto) {
-        return new Group(groupDto.getId(), groupDto.getName());
+        return new Group(groupDto.getName());
     }
 
     public GroupDto mapToGroupDto(Group group) {
