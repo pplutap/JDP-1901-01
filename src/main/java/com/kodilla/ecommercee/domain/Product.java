@@ -24,9 +24,8 @@ public class Product {
     }
 
     @Id
-    @GeneratedValue
     @NotNull
-    @Column(name = "PRODUCT_ID", unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }
