@@ -30,8 +30,8 @@ public class OrderController {
     public List<OrderDto> getOrders() {
 
         List<OrderDto> list = new ArrayList<>();
-        list.add(new OrderDto(2L, "test 2"));
-        list.add(new OrderDto(3L, "test 3"));
+        list.add(new OrderDto());
+        list.add(new OrderDto());
 
 
         return list;
@@ -39,7 +39,7 @@ public class OrderController {
 
     @GetMapping(value="getOrder/{id}")
     public OrderDto getOrder(@PathVariable("id") Long orderId) {
-        return new OrderDto(1L, "test value");
+        return new OrderDto();
     }
 
     @PostMapping(value="addOrder", consumes = APPLICATION_JSON_VALUE)
