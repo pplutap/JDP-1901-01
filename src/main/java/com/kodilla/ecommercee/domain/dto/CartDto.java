@@ -1,14 +1,16 @@
 package com.kodilla.ecommercee.domain.dto;
 
-import java.util.Map;
+import com.kodilla.ecommercee.domain.Product;
+
+import java.util.List;
 
 public class CartDto {
     private long id;
-    private Map<Long, Integer> productsInCartQuantity;
+    private List<Product> productList;
 
-    public CartDto(long id, Map<Long, Integer> productsInCartQuantity) {
+    public CartDto(long id, List<Product> products) {
         this.id = id;
-        this.productsInCartQuantity = productsInCartQuantity;
+        this.productList = products;
     }
 
     public CartDto() {
@@ -18,7 +20,7 @@ public class CartDto {
         return id;
     }
 
-    public Map<Long, Integer> getProductsInCartQuantity() {
-        return productsInCartQuantity;
+    public List<Product> getProductsInCart() {
+        return productList;
     }
 }
