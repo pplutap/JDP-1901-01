@@ -5,7 +5,8 @@ import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "PRODUCTS_GROUPS")
+@Entity
+@Table(name = "PRODUCTS_GROUPS")
 public class Group {
     private long id;
     private String name;
