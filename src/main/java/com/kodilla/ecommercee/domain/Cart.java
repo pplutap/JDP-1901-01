@@ -45,15 +45,4 @@ public class Cart {
         return products;
     }
 
-    public void addToCart(Product product) {
-        products.add(product);
-    }
-
-    public void removeFromCart(Product product) {
-            products.remove(product);
-    }
-
-
-
-
 }
