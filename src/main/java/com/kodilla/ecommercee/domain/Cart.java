@@ -50,11 +50,7 @@ public class Cart {
     }
 
     public void removeFromCart(Product product) {
-        if(products.contains(product)) {
             products.remove(product);
-        } else {
-            throw new ProductNotFoundInCartException("Product was not found in the cart");
-        }
     }
 
 
