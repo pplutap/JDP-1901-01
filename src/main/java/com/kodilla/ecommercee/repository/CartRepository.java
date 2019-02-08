@@ -17,6 +17,7 @@ public interface CartRepository extends CrudRepository<Cart, Long> {
     @Override
     List<Cart> findAll();
 
-    Optional<Cart> findById(long id);
+    @Override
+    Optional<Cart> findById(Long id);
 
 }

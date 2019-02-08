@@ -20,7 +20,7 @@ public class CartService {
 
     public Cart getCartById(Long id) {
 
-        return cartRepository.findById(id).orElseThrow(() -> new CartNotFoundException());
+        return cartRepository.findById(id).orElseThrow(CartNotFoundException::new);
     }
 
     public List<Cart> getCartList() {
