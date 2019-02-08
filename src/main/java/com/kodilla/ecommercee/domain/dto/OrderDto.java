@@ -30,4 +30,16 @@ public class OrderDto {
     public List<Product> getProductList() {
         return productList;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
 }
