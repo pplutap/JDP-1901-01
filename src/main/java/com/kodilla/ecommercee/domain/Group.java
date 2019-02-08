@@ -23,7 +23,6 @@ public class Group {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID", unique = true)
     public long getId() {
         return id;
     }

@@ -43,7 +43,7 @@ public class Product {
     }
 
     @NotNull
-    @Column(name = "PRICE")
+    @Column(name = "PRICE", precision = 6, scale = 2)
     public BigDecimal getPrice() {
         return price;
     }
