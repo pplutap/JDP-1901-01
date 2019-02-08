@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -24,12 +25,6 @@ public class GroupController {
     public List<GroupDto> getGroups() {
 
         List<GroupDto> groups = new ArrayList<>();
-
-        groups.add(new GroupDto(1, "Ubrania"));
-        groups.add(new GroupDto(2, "Dodatki"));
-        groups.add(new GroupDto(3, "Biżuteria"));
-        groups.add(new GroupDto(4, "Obuwie"));
-
         return groups;
     }
 
@@ -40,7 +35,7 @@ public class GroupController {
 
     @GetMapping(value = "id/{id}")
     public GroupDto getById(@PathVariable("id") long id) {
-        return new GroupDto(id, ("Test id -> " + id));
+        return new GroupDto(id, "Test id -> " + id, new HashSet<>());
     }
 
     @PutMapping(value = "update")
