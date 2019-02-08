@@ -37,7 +37,7 @@ public class CartController {
 
     @PostMapping(value = "createOrder")
     public OrderDto createOrder(Long cartId) {
-        return new OrderDto(cartId, "order contains productsId from cart and their quantity");
+        return new OrderDto();
     }
 
     @PostMapping(value = "createCart")

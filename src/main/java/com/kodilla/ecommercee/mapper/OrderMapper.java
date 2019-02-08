@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.mapper;
 
-import com.kodilla.ecommercee.GenericEntity;
+import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import org.springframework.stereotype.Component;
 
@@ -10,17 +10,19 @@ import java.util.stream.Collectors;
 @Component
 public class OrderMapper {
 
-    public GenericEntity mapToOrder(final OrderDto orderDto) {
-        return new GenericEntity();
+    public Order mapToOrder(final OrderDto orderDto) {
+
+        return new Order(orderDto.getId(), orderDto.getProductList(),orderDto.getUser());
     }
 
-    public OrderDto mapToOrderDto(final GenericEntity entity) {
-        return new OrderDto();
+    public OrderDto mapToOrderDto(final Order order) {
+
+        return new OrderDto(order.getId(), order.getProductList(),order.getUser());
     }
 
-    public List<OrderDto> mapToOrderDtoList(final List<GenericEntity> orderList) {
+    public List<OrderDto> mapToOrderDtoList(final List<Order> orderList) {
         return orderList.stream()
-                .map(e -> new OrderDto(e.getId(), e.getValue()))
+                .map(o -> mapToOrderDto(o) )
                 .collect(Collectors.toList());
     }
 
