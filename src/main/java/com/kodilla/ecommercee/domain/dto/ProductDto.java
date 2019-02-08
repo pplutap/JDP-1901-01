@@ -1,16 +1,18 @@
 package com.kodilla.ecommercee.domain.dto;
 
+import java.math.BigDecimal;
+
 public class ProductDto {
     private Long id;
     private String name;
     private String description;
-    private double price;
+    private BigDecimal price;
     private Long groupId;
 
     public ProductDto() {
     }
 
-    public ProductDto(Long id, String name, String description, double price, Long groupId) {
+    public ProductDto(Long id, String name, String description, BigDecimal price, Long groupId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,7 +32,7 @@ public class ProductDto {
         return description;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
