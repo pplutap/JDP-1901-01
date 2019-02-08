@@ -31,4 +31,20 @@ public class UserDto {
     public Long getUserKey() {
         return userKey;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setUserKey(Long userKey) {
+        this.userKey = userKey;
+    }
 }

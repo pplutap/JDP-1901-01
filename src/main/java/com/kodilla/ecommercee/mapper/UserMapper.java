@@ -27,7 +27,7 @@ public class UserMapper {
 
     public List<UserDto> mapToUserDtoList(final List<User> userList) {
         return userList.stream()
-                .map(u -> new UserDto(u.getId(), u.getUsername(), u.getStatus(), u.getUserKey()))
+                .map(u -> mapToUserDto(u))
                 .collect(Collectors.toList());
     }
 }
