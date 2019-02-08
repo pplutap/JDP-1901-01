@@ -45,4 +45,12 @@ public class Cart {
         return products;
     }
 
+    public void setId(Long Id) {
+        this.id = id;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
 }

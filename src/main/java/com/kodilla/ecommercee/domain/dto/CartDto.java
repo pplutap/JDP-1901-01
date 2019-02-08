@@ -23,4 +23,12 @@ public class CartDto {
     public List<Product> getProductsInCart() {
         return productList;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setProductList(List<Product> list) {
+        this.productList = list;
+    }
 }
