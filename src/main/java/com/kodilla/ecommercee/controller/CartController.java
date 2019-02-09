@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.exception.CartNotFoundException;
 import com.kodilla.ecommercee.domain.dto.OrderDto;
 import com.kodilla.ecommercee.domain.dto.CartDto;
@@ -7,7 +8,9 @@ import com.kodilla.ecommercee.mapper.CartMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/carts")
@@ -21,7 +24,10 @@ public class CartController {
 
     @GetMapping(value = "getProductsInCart/{id}")
     public CartDto getProductsInCart(@PathVariable("id") long cartId) throws CartNotFoundException {
-        return new CartDto(cartId, new ArrayList<>());
+        List<Product> products = new ArrayList<>();
+        products.add(new Product("banan", "żółty banan", new BigDecimal("12,33")));
+        products.add(new Product("winogrono", "białe winogrono", new BigDecimal("33,33")));
+        return new CartDto(cartId, products);
     }
 
     @PutMapping(value = "updateCart")
