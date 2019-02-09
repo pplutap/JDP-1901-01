@@ -24,11 +24,12 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String status, Long userKey) {
+    public User(Long id, String username, String status, Long userKey, List<Order> orders) {
         this.id = id;
         this.username = username;
         this.status = status;
         this.userKey = userKey;
+        this.orders = orders;
     }
 
     @Id
@@ -61,7 +62,6 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-
     public List<Order> getOrders() {
         return orders;
     }
