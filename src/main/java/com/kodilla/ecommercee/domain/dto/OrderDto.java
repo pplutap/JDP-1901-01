@@ -1,20 +1,18 @@
 package com.kodilla.ecommercee.domain.dto;
 
-import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.User;
-
-import java.util.List;
 
 public class OrderDto {
 
     private Long id;
     private User user;
-    private List<Product> products;
+    private Cart cart;
 
-    public OrderDto(Long id, List<Product> products,  User user) {
+    public OrderDto(Long id, Cart cart, User user) {
         this.id = id;
         this.user = user;
-        this.products = products;
+        this.cart = cart;
     }
 
     public OrderDto() {}
@@ -27,8 +25,8 @@ public class OrderDto {
         return user;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public Cart getCart() {
+        return cart;
     }
 
     public void setId(Long id) {
@@ -39,7 +37,7 @@ public class OrderDto {
         this.user = user;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

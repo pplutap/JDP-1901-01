@@ -1,14 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToMany;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.CascadeType;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +21,7 @@ public class Cart {
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CART_ID")
     public Long getId() {
         return id;
     }
@@ -36,8 +29,8 @@ public class Cart {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "JOIN_CART_PRODUCT",
-            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
+            joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
     )
     public List<Product> getProducts() {
         return products;
