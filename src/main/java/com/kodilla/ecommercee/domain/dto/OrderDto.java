@@ -9,12 +9,12 @@ public class OrderDto {
 
     private Long id;
     private User user;
-    private List<Product> productList;
+    private List<Product> products;
 
-    public OrderDto(Long id, List<Product> productList,  User user) {
+    public OrderDto(Long id, List<Product> products,  User user) {
         this.id = id;
         this.user = user;
-        this.productList = productList;
+        this.products = products;
     }
 
     public OrderDto() {}
@@ -27,8 +27,8 @@ public class OrderDto {
         return user;
     }
 
-    public List<Product> getProductList() {
-        return productList;
+    public List<Product> getProducts() {
+        return products;
     }
 
     public void setId(Long id) {
@@ -39,7 +39,7 @@ public class OrderDto {
         this.user = user;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

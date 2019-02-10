@@ -10,13 +10,13 @@ public class Order {
 
     private Long id;
     private User user;
-    private List<Product> productList;
+    private List<Product> products;
 
     private Order() {}
 
-    public Order(long id, List<Product> productList, User user) {
+    public Order(long id, List<Product> products, User user) {
         this.id = id;
-        this.productList = productList;
+        this.products = products;
         this.user = user;
     }
 
@@ -33,9 +33,14 @@ public class Order {
         return user;
     }
 
-    @Column(name = "Products")
-    public List<Product> getProductList() {
-        return productList;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "JOIN_ORDER_PRODUCT",
+            joinColumns = {@JoinColumn(name = "ORDER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "ID")}
+    )
+    public List<Product> getProducts() {
+        return products;
     }
 
     public void setId(Long id) {
@@ -46,7 +51,7 @@ public class Order {
         this.user = user;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 }

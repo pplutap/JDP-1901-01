@@ -1,13 +1,7 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.dto.UserDto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
 
@@ -21,7 +15,7 @@ public class UserController {
 
     @PutMapping("banUser")
     public UserDto banUser(@RequestBody UserDto userDto) {
-        return new UserDto(userDto.getId(), userDto.getUsername(), "-1", userDto.getUserKey());
+        return new UserDto(userDto.getId(), userDto.getUsername(), "-1", userDto.getUserKey(),userDto.getOrders());
     }
 
     @GetMapping("generateKey")
