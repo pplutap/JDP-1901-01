@@ -14,8 +14,7 @@ public class UserMapper {
                 userDto.getId(),
                 userDto.getUsername(),
                 userDto.getStatus(),
-                userDto.getUserKey(),
-                userDto.getOrders());
+                userDto.getUserKey());
     }
 
     public UserDto mapToUserDto(final User user) {
@@ -23,8 +22,7 @@ public class UserMapper {
                 user.getId(),
                 user.getUsername(),
                 user.getStatus(),
-                user.getUserKey(),
-                user.getOrders());
+                user.getUserKey());
     }
 
     public List<UserDto> mapToUserDtoList(final List<User> users) {

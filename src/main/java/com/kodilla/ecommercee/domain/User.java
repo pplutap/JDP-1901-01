@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "USERS")
@@ -17,20 +18,23 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String status, Long userKey, List<Order> orders) {
+    public User(Long id, String username, String status, Long userKey) {
         this.id = id;
         this.username = username;
         this.status = status;
         this.userKey = userKey;
-        this.orders = orders;
     }
 
     @Id
     @NotNull
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "USER_ID")
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @NotNull
@@ -39,15 +43,27 @@ public class User {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @NotNull
     @Column(name = "STATUS")
     public String getStatus() {
         return status;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Column(name = "USERKEY")
     public Long getUserKey() {
         return userKey;
+    }
+
+    public void setUserKey(Long userKey) {
+        this.userKey = userKey;
     }
 
     @OneToMany(
@@ -60,23 +76,22 @@ public class User {
         return orders;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setUserKey(Long userKey) {
-        this.userKey = userKey;
-    }
-
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(status, user.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, status);
     }
 }
