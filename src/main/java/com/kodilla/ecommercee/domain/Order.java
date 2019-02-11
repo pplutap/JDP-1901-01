@@ -2,7 +2,6 @@ package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
@@ -10,19 +9,20 @@ public class Order {
 
     private Long id;
     private User user;
-    private List<Product> productList;
+    private Cart cart;
 
     private Order() {}
 
-    public Order(long id, List<Product> productList, User user) {
+    public Order(long id, Cart cart, User user) {
         this.id = id;
-        this.productList = productList;
+        this.cart = cart;
         this.user = user;
     }
 
     @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ORDER_ID")
     public Long getId() {
         return id;
     }
@@ -33,9 +33,10 @@ public class Order {
         return user;
     }
 
-    @Column(name = "Products")
-    public List<Product> getProductList() {
-        return productList;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")
+    public Cart getCart() {
+        return cart;
     }
 
     public void setId(Long id) {
@@ -46,7 +47,7 @@ public class Order {
         this.user = user;
     }
 
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 }

@@ -6,11 +6,11 @@ import java.util.List;
 
 public class CartDto {
     private long id;
-    private List<Product> productList;
+    private List<Product> products;
 
     public CartDto(long id, List<Product> products) {
         this.id = id;
-        this.productList = products;
+        this.products = products;
     }
 
     public CartDto() {
@@ -21,14 +21,14 @@ public class CartDto {
     }
 
     public List<Product> getProductsInCart() {
-        return productList;
+        return products;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setProductList(List<Product> list) {
-        this.productList = list;
+    public void setProducts(List<Product> list) {
+        this.products = list;
     }
 }

@@ -27,8 +27,8 @@ public class UserMapper {
                 user.getOrders());
     }
 
-    public List<UserDto> mapToUserDtoList(final List<User> userList) {
-        return userList.stream()
+    public List<UserDto> mapToUserDtoList(final List<User> users) {
+        return users.stream()
                 .map(u -> mapToUserDto(u))
                 .collect(Collectors.toList());
     }
