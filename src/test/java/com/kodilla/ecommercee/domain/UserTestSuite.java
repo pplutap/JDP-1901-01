@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -21,10 +22,10 @@ public class UserTestSuite {
     @Test
     public void testSave() {
         //Given
-        User user = new User(1L,"jane", "user", 23456L);
-        User user2 = new User(23L,"jim", "user2", 4232L);
-        User user3 = new User(11L, "john", "test1", 1L);
-        User user4 = new User(2345L, "judy", "admin", 0L);
+        User user = new User("jane", "user", 23456L);
+        User user2 = new User("jim", "user2", 4232L);
+        User user3 = new User("john", "test1", 1L);
+        User user4 = new User("judy", "admin", 0L);
 
         //When
         userRepository.save(user);
@@ -40,9 +41,9 @@ public class UserTestSuite {
     @Test
     public void testFindAll() {
         //Given
-        User user = new User(1L,"jane", "user", 23456L);
-        User user2 = new User(23L,"jim", "user2", 4232L);
-        User user4 = new User(2345L, "judy", "admin", 0L);
+        User user = new User("jane", "user", 23456L);
+        User user2 = new User("jim", "user2", 4232L);
+        User user4 = new User("judy", "admin", 0L);
 
         userRepository.save(user);
         userRepository.save(user2);
@@ -60,14 +61,15 @@ public class UserTestSuite {
     @Test
     public void testFindById() {
         //Given
-        User user2 = new User(23L,"jim", "user2", 4232L);
+        User user2 = new User("jim", "user2", 4232L);
 
         userRepository.save(user2);
 
         //When
-        User testUser = userRepository.findById(23L).get();
+        long testId = user2.getId();
+        Optional<User> testUser = userRepository.findById(testId);
 
         //Then
-        Assert.assertEquals(user2, testUser);
+        Assert.assertEquals(Optional.of(user2), testUser);
     }
 }

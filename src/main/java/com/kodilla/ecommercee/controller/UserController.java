@@ -15,7 +15,7 @@ public class UserController {
 
     @PutMapping("banUser")
     public UserDto banUser(@RequestBody UserDto userDto) {
-        return new UserDto(userDto.getId(), userDto.getUsername(), "-1", userDto.getUserKey());
+        return new UserDto(userDto.getUsername(), "-1", userDto.getUserKey());
     }
 
     @GetMapping("generateKey")

@@ -15,8 +15,7 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Long id, String username, String status, Long userKey) {
-        this.id = id;
+    public UserDto(String username, String status, Long userKey) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
