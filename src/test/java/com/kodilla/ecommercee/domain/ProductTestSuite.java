@@ -24,7 +24,7 @@ public class ProductTestSuite {
 
     @Transactional
     @Test
-    public void testSavingProduct() {
+    public void testSaveProduct() {
         //given
         Product testProduct = new Product();
         testProduct.setName("Shirt");
@@ -33,9 +33,10 @@ public class ProductTestSuite {
 
         //when
         productRepository.save(testProduct);
+        List<Product> allProducts = productRepository.findAll();
 
         //then
-        Assert.assertEquals(1L, productRepository.count());
+        Assert.assertTrue(allProducts.contains(testProduct));
     }
 
     @Transactional
@@ -111,7 +112,6 @@ public class ProductTestSuite {
         List<Product> loadedProducts = productRepository.findAll();
 
         //then
-        Assert.assertEquals(4, loadedProducts.size());
         Assert.assertTrue(loadedProducts.contains(testProductOne));
         Assert.assertTrue(loadedProducts.contains(testProductTwo));
         Assert.assertTrue(loadedProducts.contains(testProductThree));
@@ -119,21 +119,22 @@ public class ProductTestSuite {
     }
 
     @Test
-    public void testingDeletingProduct() {
+    public void testDeleteProduct() {
         //given
         Product testProduct = new Product("Shirt", "white shirt", BigDecimal.valueOf(5.20));
         productRepository.save(testProduct);
 
         //when
         productRepository.delete(testProduct);
+        List<Product> allProducts = productRepository.findAll();
 
         //then
-        Assert.assertEquals(0L, productRepository.count());
+        Assert.assertTrue( !allProducts.contains(testProduct) );
 
     }
 
     @Test
-    public void testingDeletingProductById() {
+    public void testDeleteProductById() {
         //given
         Product testProduct = new Product("Shirt", "white shirt", BigDecimal.valueOf(5.20));
         productRepository.save(testProduct);
@@ -141,9 +142,10 @@ public class ProductTestSuite {
 
         //when
         productRepository.deleteById(id);
+        List<Product> allProducts = productRepository.findAll();
 
         //then
-        Assert.assertEquals(0L, productRepository.count());
+        Assert.assertTrue( !allProducts.contains(testProduct) );
     }
 
     @Transactional
