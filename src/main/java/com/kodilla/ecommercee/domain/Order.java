@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name = "ORDERS")
@@ -11,10 +12,9 @@ public class Order {
     private User user;
     private Cart cart;
 
-    private Order() {}
+    public Order() {}
 
-    public Order(long id, Cart cart, User user) {
-        this.id = id;
+    public Order(Cart cart, User user) {
         this.cart = cart;
         this.user = user;
     }
@@ -49,5 +49,25 @@ public class Order {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        if (!id.equals(order.id)) return false;
+        if (!Objects.equals(user, order.user)) return false;
+        return Objects.equals(cart, order.cart);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (cart != null ? cart.hashCode() : 0);
+        return result;
     }
 }

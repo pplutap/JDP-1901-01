@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class CartService {
@@ -27,8 +26,8 @@ public class CartService {
         return cartRepository.findAll();
     }
 
-    public void addCart(Cart cart) {
-        cartRepository.save(cart);
+    public Cart addCart(Cart cart) {
+        return cartRepository.save(cart);
     }
 
 
