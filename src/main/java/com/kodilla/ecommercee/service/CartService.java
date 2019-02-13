@@ -17,7 +17,7 @@ public class CartService {
         this.cartRepository = cartRepository;
     }
 
-    public Cart getCartById(Long id) {
+    public Cart getCartById(long id) {
 
         return cartRepository.findById(id).orElseThrow(CartNotFoundException::new);
     }

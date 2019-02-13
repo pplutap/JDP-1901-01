@@ -99,17 +99,18 @@ public class OrderEntityTestSuit {
         int usersTableSizeBefore = userService.getUserList().size();
         int cartsTableSizeBefore = cartService.getCartList().size();
         int ordersTableSizeBefore = orderService.getOrderList().size();
-
         Cart cart = cartService.addCart(new Cart());
-        User user = userService.addUser(new User());
+        User user = userService.addUser(new User("name", "status", 123L));
 
         //When
-        orderService.addOrder(new Order());
+        Order order = orderService.addOrder(new Order(cart, user));
 
         //Then
         assertEquals(ordersTableSizeBefore + 1, orderService.getOrderList().size());
         assertEquals(usersTableSizeBefore + 1, userService.getUserList().size());
         assertEquals(cartsTableSizeBefore + 1, cartService.getCartList().size());
+        assertTrue(cartService.getCartList().contains(cart));
+        assertTrue(userService.getUserList().contains(user));
     }
 
 }

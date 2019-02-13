@@ -17,12 +17,10 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String username, String status, Long userKey, List<Order> orders) {
-        this.id = id;
+    public User(String username, String status, Long userKey) {
         this.username = username;
         this.status = status;
         this.userKey = userKey;
-        this.orders = orders;
     }
 
     @Id
