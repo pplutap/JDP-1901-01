@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.repository.ProductRepository;
 import org.junit.Assert;
 import org.junit.Test;
@@ -18,6 +19,8 @@ import java.util.Optional;
 public class ProductTestSuite {
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private GroupRepository groupRepository;
 
     @Transactional
     @Test
@@ -57,14 +60,34 @@ public class ProductTestSuite {
         Group clothes = new Group();
         Group food = new Group();
 
-        Product trousers = new Product("trousers", "normal trousers", BigDecimal.valueOf(22.90));
-        Product socks = new Product("socks", "clean socks", BigDecimal.valueOf(2.99));
-        Product tomatoe = new Product("tomato", "red tomato", BigDecimal.valueOf(0.99));
-        Product onion = new Product("onion", "just onion", BigDecimal.valueOf(0.25));
+        groupRepository.save(clothes);
+        groupRepository.save(food);
 
-        /**
-         * Can't test setting group without method being public
-         */
+        Product trousers = new Product("trousers", "normal trousers", BigDecimal.valueOf(22.90));
+        trousers.setGroup(clothes);
+
+        Product tomato = new Product("tomato", "red tomato", BigDecimal.valueOf(0.99));
+        tomato.setGroup(food);
+
+        productRepository.save(trousers);
+        productRepository.save(tomato);
+
+        Long clothesId = clothes.getId();
+        Long foodId = food.getId();
+
+        Long trousersId = trousers.getId();
+        Long tomatoId = tomato.getId();
+
+        //when
+        Product loadedTrousers = productRepository.findById(trousersId).get();
+        Long loadedTrousersGroupId = loadedTrousers.getGroup().getId();
+
+        Product loadedTomato = productRepository.findById(tomatoId).get();
+        Long loadedTomatoGroupId =loadedTomato.getGroup().getId();
+
+        //then
+        Assert.assertEquals(clothesId, loadedTrousersGroupId);
+        Assert.assertEquals(foodId, loadedTomatoGroupId);
     }
 
     @Transactional
@@ -82,10 +105,7 @@ public class ProductTestSuite {
         productRepository.save(testProductFour);
 
         //when
-        /**
-         * This method should work without need of casting
-         */
-        List<Product> loadedProducts = (List<Product>)productRepository.findAll();
+        List<Product> loadedProducts = productRepository.findAll();
 
         //then
         Assert.assertEquals(4, loadedProducts.size());
