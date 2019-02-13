@@ -129,7 +129,7 @@ public class ProductTestSuite {
         List<Product> allProducts = productRepository.findAll();
 
         //then
-        Assert.assertTrue( !allProducts.contains(testProduct) );
+        Assert.assertFalse( allProducts.contains(testProduct) );
 
     }
 
@@ -145,7 +145,7 @@ public class ProductTestSuite {
         List<Product> allProducts = productRepository.findAll();
 
         //then
-        Assert.assertTrue( !allProducts.contains(testProduct) );
+        Assert.assertFalse( allProducts.contains(testProduct) );
     }
 
     @Transactional
