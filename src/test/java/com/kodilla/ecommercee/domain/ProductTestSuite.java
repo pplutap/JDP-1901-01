@@ -26,7 +26,10 @@ public class ProductTestSuite {
     @Test
     public void testSavingProduct() {
         //given
-        Product testProduct = new Product("Shirt", "white shirt", BigDecimal.valueOf(5.20));
+        Product testProduct = new Product();
+        testProduct.setName("Shirt");
+        testProduct.setDescription("white shirt");
+        testProduct.setPrice(BigDecimal.valueOf(5.20));
 
         //when
         productRepository.save(testProduct);
