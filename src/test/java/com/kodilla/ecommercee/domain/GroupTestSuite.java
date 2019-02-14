@@ -176,6 +176,6 @@ public class GroupTestSuite {
         Assert.assertEquals(initialNumberOfGroups , numberOfGroupsAfterDeletes);
         Assert.assertEquals(numberOfGroupsAfterSaves - 2L, numberOfGroupsAfterDeletes);
         Assert.assertFalse(groupRepository.findAll().contains(group1));
-        Assert.assertFalse(groupRepository.findAll().contains(group1));
+        Assert.assertFalse(groupRepository.findAll().contains(group));
     }
 }
