@@ -44,15 +44,15 @@ public class Group {
         return products;
     }
 
-    private void setId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    private void setProducts(Set<Product> products) {
+    public void setProducts(Set<Product> products) {
         this.products = products;
     }
 }
