@@ -3,6 +3,7 @@ package com.kodilla.ecommercee.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -54,5 +55,20 @@ public class Group {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return id == group.id &&
+                Objects.equals(name, group.name) &&
+                Objects.equals(products, group.products);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, products);
     }
 }
