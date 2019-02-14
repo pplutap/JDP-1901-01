@@ -118,6 +118,7 @@ public class ProductTestSuite {
         Assert.assertTrue(loadedProducts.contains(testProductFour));
     }
 
+    @Transactional
     @Test
     public void testDeleteProduct() {
         //given
@@ -133,6 +134,7 @@ public class ProductTestSuite {
 
     }
 
+    @Transactional
     @Test
     public void testDeleteProductById() {
         //given
