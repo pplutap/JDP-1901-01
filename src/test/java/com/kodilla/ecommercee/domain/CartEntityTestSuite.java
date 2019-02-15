@@ -35,18 +35,18 @@ public class CartEntityTestSuite {
         testCart.getProducts().add(p1);
         testCart.getProducts().add(p2);
         testCart.getProducts().add(p3);
+
+        int quantityBefore = cr.findAll().size();
+
         cr.save(testCart);
 
-        int quantity = cr.findAll().size();
-        int expectedResult = 1;
-        long productQuantityInDatabase = cr.findAll().stream()
-                .flatMap(list -> list.getProducts().stream())
-                .count();
-        long expectedResult2 = 3;
+        int quantityAfter = cr.findAll().size();
+
+        List<Cart> allCarts = cr.findAll();
 
         //Then
-        Assert.assertEquals(expectedResult, quantity);
-        Assert.assertEquals(expectedResult2, productQuantityInDatabase);
+        Assert.assertEquals(quantityBefore, quantityAfter - 1);
+        Assert.assertTrue(allCarts.contains(testCart));
     }
 
     @Test
@@ -65,21 +65,9 @@ public class CartEntityTestSuite {
         testCart.getProducts().add(p3);
 
         cr.save(testCart);
-        List<Cart> cartList = cr.findAll();
+        Cart expectedCart = cr.findById(testCart.getId()).orElseThrow(CartNotFoundException::new);
 
-//        Double cartValue = cr.findById(1L).orElseThrow(CartNotFoundException::new)
-//                .getProducts()
-//                .stream()
-//                .map(product -> product.getPrice())
-//                .mapToDouble(BigDecimal::doubleValue)
-//                .sum();
-//
-//        Double expected = 166.6;
-
-        //Then
-
- //       Assert.assertEquals(expected, cartValue, 0.1);
-        Assert.assertTrue(cartList.contains(testCart));
+        Assert.assertEquals(testCart, expectedCart);
     }
 
     @Test
@@ -96,18 +84,15 @@ public class CartEntityTestSuite {
         testCart.getProducts().add(p1);
         testCart.getProducts().add(p2);
         testCart.getProducts().add(p3);
-
         cr.save(testCart);
 
         testCart.getProducts().add(new Product("p1", "Description p1", new BigDecimal(55.55)));
         cr.save(testCart);
 
-        int cartProductListSizeAfterAdding = cr.findById(1L).orElseThrow(CartNotFoundException::new).getProducts().size();
-        int actualValueOfCarts = cr.findAll().size();
+        int cartProductListSizeAfterAdding = cr.findById(testCart.getId()).orElseThrow(CartNotFoundException::new).getProducts().size();
 
         //Then
         Assert.assertEquals(4, cartProductListSizeAfterAdding);
-        Assert.assertEquals(1, actualValueOfCarts);
     }
 
     @Test
@@ -125,6 +110,8 @@ public class CartEntityTestSuite {
         testCart.getProducts().add(p2);
         testCart.getProducts().add(p3);
 
+        int cartListSizeBefore = cr.findAll().size();
+
         cr.save(testCart);
         int cartListSizeAfterAdding = cr.findAll().size();
 
@@ -132,7 +119,7 @@ public class CartEntityTestSuite {
         int actualValue = cr.findAll().size();
 
         //Then
-        Assert.assertEquals(1, cartListSizeAfterAdding);
-        Assert.assertEquals(0, actualValue);
+        Assert.assertEquals(cartListSizeBefore + 1, cartListSizeAfterAdding);
+        Assert.assertEquals(cartListSizeBefore, actualValue);
     }
 }
