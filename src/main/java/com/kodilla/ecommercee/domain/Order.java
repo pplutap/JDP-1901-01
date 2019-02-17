@@ -11,10 +11,9 @@ public class Order {
     private User user;
     private Cart cart;
 
-    private Order() {}
+    public Order() {}
 
-    public Order(long id, Cart cart, User user) {
-        this.id = id;
+    public Order(Cart cart, User user) {
         this.cart = cart;
         this.user = user;
     }
