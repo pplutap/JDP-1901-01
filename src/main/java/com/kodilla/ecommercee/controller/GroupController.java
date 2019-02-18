@@ -4,11 +4,16 @@ import com.kodilla.ecommercee.domain.dto.GroupDto;
 import com.kodilla.ecommercee.mapper.GroupMapper;
 import com.kodilla.ecommercee.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/groups")
@@ -27,7 +32,7 @@ public class GroupController {
         return groupMapper.mapToGroupDtoList(groupService.getAllGroups());
     }
 
-    @PostMapping(value = "addGroup", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "addGroup")
     public void addGroup(@RequestBody GroupDto groupDto) {
         groupService.saveGroup(groupMapper.mapToGroup(groupDto));
     }
