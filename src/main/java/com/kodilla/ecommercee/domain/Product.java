@@ -18,6 +18,14 @@ public class Product {
     public Product() {
     }
 
+    public Product(long id, String name, String description, BigDecimal price, Group group) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.group = group;
+    }
+
     public Product(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;
