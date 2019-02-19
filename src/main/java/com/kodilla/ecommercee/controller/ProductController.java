@@ -39,17 +39,17 @@ public class ProductController {
         return productMapper.mapToProductDto(productService.getProductById(productId).orElseThrow(ProductNotFoundException::new));
     }
 
-    @PostMapping(value = "addProduct")
+    @PostMapping
     public void addProduct(@RequestBody ProductDto productDto) throws GroupNotFoundException {
-        productService.addProduct(productMapper.mapToProduct(productDto));
+        productService.saveProduct(productMapper.mapToProduct(productDto));
     }
 
-    @PatchMapping(value = "updateProduct")
-    public ProductDto updateProduct(@RequestBody ProductDto productDto) throws GroupNotFoundException {
-        return productMapper.mapToProductDto(productService.saveProduct(productMapper.mapToProduct(productDto)));
+    @PatchMapping(value = "{id}")
+    public ProductDto updateProduct(@RequestBody ProductDto productDto, @PathVariable("id") Long productId) throws ProductNotFoundException, GroupNotFoundException {
+        return productMapper.mapToProductDto(productService.updateProduct(productDto, productId));
     }
 
-    @DeleteMapping(value = "deleteProduct/{id}")
+    @DeleteMapping(value = "{id}")
     public void deleteProduct(@PathVariable("id") Long productId) {
         productService.deleteProduct(productId);
     }
