@@ -26,6 +26,13 @@ public class Product {
         this.group = group;
     }
 
+    public Product(String name, String description, BigDecimal price, Group group) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.group = group;
+    }
+
     public Product(String name, String description, BigDecimal price) {
         this.name = name;
         this.description = description;

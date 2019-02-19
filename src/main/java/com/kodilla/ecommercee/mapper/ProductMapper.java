@@ -20,12 +20,8 @@ public class ProductMapper {
     }
 
     public Product mapToProduct(ProductDto productDto) throws GroupNotFoundException{
-        if (groupRepository.findById(productDto.getGroupId()).isPresent()) {
-            return new Product(productDto.getId(), productDto.getName(),
-                    productDto.getDescription(), productDto.getPrice(),
-                    groupRepository.findById(productDto.getGroupId()).get());
-        }
-        else throw new GroupNotFoundException();
+        return new Product(productDto.getName(), productDto.getDescription(), productDto.getPrice(),
+                groupRepository.findById(productDto.getGroupId()).orElseThrow(GroupNotFoundException::new));
     }
 
     public ProductDto mapToProductDto(Product product) {

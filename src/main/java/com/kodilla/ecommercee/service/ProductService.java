@@ -17,13 +17,11 @@ public class ProductService {
     private ProductRepository productRepository;
     private GroupRepository groupRepository;
 
+    @Autowired
     public ProductService(ProductRepository productRepository, GroupRepository groupRepository) {
         this.productRepository = productRepository;
         this.groupRepository = groupRepository;
     }
-
-    @Autowired
-
 
     public List<Product> getProductList() {
         return productRepository.findAll();
@@ -33,8 +31,8 @@ public class ProductService {
         return productRepository.findById(id);
     }
 
-    public Product saveProduct(Product product) {
-        return productRepository.save(product);
+    public void addProduct(Product product) throws GroupNotFoundException {
+        productRepository.save(product);
     }
 
     public void deleteProduct(long id) {

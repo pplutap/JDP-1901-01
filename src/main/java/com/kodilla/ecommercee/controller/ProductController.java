@@ -29,19 +29,19 @@ public class ProductController {
         this.productMapper = productMapper;
     }
 
-    @GetMapping(value = "getProducts")
+    @GetMapping
     public List<ProductDto> getProducts() {
         return productMapper.mapToProductDtoList(productService.getProductList());
     }
 
-    @GetMapping(value = "getProduct/{id}")
+    @GetMapping(value = "{id}")
     public ProductDto getProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
         return productMapper.mapToProductDto(productService.getProductById(productId).orElseThrow(ProductNotFoundException::new));
     }
 
     @PostMapping
     public void addProduct(@RequestBody ProductDto productDto) throws GroupNotFoundException {
-        productService.saveProduct(productMapper.mapToProduct(productDto));
+        productService.addProduct(productMapper.mapToProduct(productDto));
     }
 
     @PatchMapping(value = "{id}")
