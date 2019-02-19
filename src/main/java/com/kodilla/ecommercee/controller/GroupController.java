@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PatchMapping;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/groups")
 public class GroupController {
@@ -26,12 +25,12 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @GetMapping(value = "getGroups")
+    @GetMapping
     public List<GroupDto> getGroups() {
         return groupMapper.mapToGroupDtoList(groupService.getAllGroups());
     }
 
-    @PostMapping(value = "addGroup")
+    @PostMapping
     public void addGroup(@RequestBody GroupDto groupDto) {
         groupService.saveGroup(groupMapper.mapToGroup(groupDto));
     }
@@ -41,9 +40,9 @@ public class GroupController {
         return groupMapper.mapToGroupDto(groupService.getGroupById(id));
     }
 
-    @PatchMapping(value = "update")
-    public GroupDto update(@RequestBody GroupDto groupDto) {
-        return groupMapper.mapToGroupDto(groupService.saveGroup(groupMapper.mapToGroup(groupDto)));
+    @PatchMapping(value = "{id}")
+    public GroupDto update(@RequestBody GroupDto groupDto, @PathVariable("id") long id) {
+        return groupMapper.mapToGroupDto(groupService.updateGroup(groupDto, id));
     }
 
 }
