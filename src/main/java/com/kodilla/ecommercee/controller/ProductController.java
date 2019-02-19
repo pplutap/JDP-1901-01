@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.dto.ProductDto;
-import com.kodilla.ecommercee.exception.GroupNotFoundException;
 import com.kodilla.ecommercee.exception.ProductNotFoundException;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.ProductService;
@@ -35,17 +34,17 @@ public class ProductController {
     }
 
     @GetMapping(value = "{id}")
-    public ProductDto getProduct(@PathVariable("id") Long productId) throws ProductNotFoundException {
+    public ProductDto getProduct(@PathVariable("id") Long productId) {
         return productMapper.mapToProductDto(productService.getProductById(productId).orElseThrow(ProductNotFoundException::new));
     }
 
     @PostMapping
-    public void addProduct(@RequestBody ProductDto productDto) throws GroupNotFoundException {
+    public void addProduct(@RequestBody ProductDto productDto)  {
         productService.addProduct(productMapper.mapToProduct(productDto));
     }
 
     @PatchMapping(value = "{id}")
-    public ProductDto updateProduct(@RequestBody ProductDto productDto, @PathVariable("id") Long productId) throws ProductNotFoundException, GroupNotFoundException {
+    public ProductDto updateProduct(@RequestBody ProductDto productDto, @PathVariable("id") Long productId) {
         return productMapper.mapToProductDto(productService.updateProduct(productDto, productId));
     }
 
