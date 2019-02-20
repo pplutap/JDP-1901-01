@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name="CARTS")
 public class Cart {
-    private Long id;
+    private long id;
     private List<Product> products = new ArrayList<>();
 
     public Cart() {}
@@ -22,7 +22,7 @@ public class Cart {
     @NotNull
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CART_ID")
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -36,7 +36,7 @@ public class Cart {
         return products;
     }
 
-    public void setId(Long Id) {
+    public void setId(long id) {
         this.id = id;
     }
 
