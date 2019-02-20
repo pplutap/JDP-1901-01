@@ -1,51 +1,56 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.dto.OrderDto;
+import com.kodilla.ecommercee.exception.CartNotFoundException;
+import com.kodilla.ecommercee.exception.OrderNotFoundException;
+import com.kodilla.ecommercee.exception.UserNotFoundException;
 import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.service.OrderService;
+import com.kodilla.ecommercee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
 
+    private final OrderService orderService;
+    private final OrderMapper orderMapper;
+
     @Autowired
-    private OrderMapper orderMapper;
+    public OrderController(OrderService orderService, OrderMapper orderMapper, UserService userService) {
+        this.orderService = orderService;
+        this.orderMapper = orderMapper;
+    }
 
-    @GetMapping(value="getOrders")
+    @GetMapping(value = "getOrders")
     public List<OrderDto> getOrders() {
-
-        List<OrderDto> list = new ArrayList<>();
-        list.add(new OrderDto());
-        list.add(new OrderDto());
-
-        return list;
+        return orderMapper.mapToOrderDtoList(orderService.getOrderList());
     }
 
-    @GetMapping(value="getOrder/{id}")
-    public OrderDto getOrder(@PathVariable("id") Long orderId) {
-        return new OrderDto();
+    @GetMapping(value = "getOrder/{id}")
+    public OrderDto getOrder(@PathVariable("id") Long orderId) throws OrderNotFoundException {
+        return orderMapper.mapToOrderDto(orderService.getOrderById(orderId));
     }
 
-    @PostMapping(value="addOrder", consumes = APPLICATION_JSON_VALUE)
-    public void addOrder(@RequestBody OrderDto orderDto) {
-
+    @PostMapping(value = "addOrder/{cartId}/{userId}")
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "User or Cart not Found")
+    public void addOrder(@RequestParam long cartId, @RequestParam long userId) throws UserNotFoundException, CartNotFoundException {
+        orderService.addOrder(cartId, userId);
     }
 
-    @PutMapping(value="updateOrder")
+    @PutMapping(value = "updateOrder")
     public void updateOrder(@RequestBody OrderDto orderDto) {
-
+        orderService.updateOrder(orderMapper.mapToOrder(orderDto));
     }
 
-    @DeleteMapping(value="deleteOrder/{id}")
-    public void deleteOrder(@PathVariable("id") Long orderId) {
-
+    @DeleteMapping(value = "deleteOrder")
+    public void deleteOrder(@RequestBody OrderDto orderDto) {
+        orderService.deleteOrder(orderMapper.mapToOrder(orderDto));
     }
 
 }
