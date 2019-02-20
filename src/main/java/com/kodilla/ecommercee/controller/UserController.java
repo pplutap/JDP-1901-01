@@ -1,18 +1,15 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.dto.UserDto;
+import com.kodilla.ecommercee.exception.UserNotFoundException;
 import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Random;
 
 @RestController
 @RequestMapping("/users")
@@ -32,13 +29,12 @@ public class UserController {
     }
 
     @PatchMapping("banUser")
-    public UserDto banUser(@RequestBody UserDto userDto) {
-        return userMapper.mapToUserDto(userService.saveUser(userMapper.mapToUser(userDto)));
+    public UserDto banUser(@RequestBody UserDto userDto) throws UserNotFoundException {
+        return userMapper.mapToUserDto(userService.banUser(userDto));
     }
 
     @PatchMapping("generateKey")
-    public Long generateKey(@RequestParam long userId) {
-        long key = new Random().nextLong();
-        return key + userId;
+    public UserDto generateKey(@RequestBody UserDto userDto) throws UserNotFoundException{
+        return userMapper.mapToUserDto(userService.generateKey(userDto));
     }
 }

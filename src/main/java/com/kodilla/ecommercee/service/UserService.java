@@ -1,12 +1,14 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.User;
+import com.kodilla.ecommercee.domain.dto.UserDto;
 import com.kodilla.ecommercee.exception.UserNotFoundException;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Random;
 
 @Component
 public class UserService {
@@ -27,5 +29,23 @@ public class UserService {
 
     public User getUserById(long id) throws UserNotFoundException {
         return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+    }
+
+    public User banUser(UserDto userDtoBanned) throws UserNotFoundException {
+        User user = userRepository.findById(userDtoBanned.getId()).orElseThrow(UserNotFoundException::new);
+
+        user.setStatus("banned");
+
+        return userRepository.save(user);
+    }
+
+    public User generateKey(UserDto userDto) throws UserNotFoundException {
+        User user = userRepository.findById(userDto.getId()).orElseThrow(UserNotFoundException::new);
+
+        long key = new Random().nextLong() + user.getId();
+
+        user.setUserKey(key);
+
+        return userRepository.save(user);
     }
 }
