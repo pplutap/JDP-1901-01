@@ -1,21 +1,16 @@
 package com.kodilla.ecommercee.domain.dto;
 
-import com.kodilla.ecommercee.domain.Order;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class UserDto {
     private Long id;
     private String username;
     private String status;
     private Long userKey;
-    private List<Order> orders = new ArrayList<>();
 
     public UserDto() {
     }
 
-    public UserDto(String username, String status, Long userKey) {
+    public UserDto(long id, String username, String status, Long userKey) {
+        this.id = id;
         this.username = username;
         this.status = status;
         this.userKey = userKey;
@@ -51,13 +46,5 @@ public class UserDto {
 
     public void setUserKey(Long userKey) {
         this.userKey = userKey;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
     }
 }

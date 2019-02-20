@@ -21,8 +21,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void addUser(User user) {
-        userRepository.save(user);
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
     public User getUserById(long id) throws UserNotFoundException {
