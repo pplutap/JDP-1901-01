@@ -10,12 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class ProductService {
-    private ProductRepository productRepository;
-    private GroupRepository groupRepository;
+    private final ProductRepository productRepository;
+    private final GroupRepository groupRepository;
 
     @Autowired
     public ProductService(ProductRepository productRepository, GroupRepository groupRepository) {
@@ -27,8 +26,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProductById(long id) {
-        return productRepository.findById(id);
+    public Product getProductById(long id) {
+        return productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
     }
 
     public void addProduct(Product product) throws GroupNotFoundException {
@@ -41,10 +40,18 @@ public class ProductService {
 
     public Product  updateProduct(ProductDto updatedProduct, long id) throws GroupNotFoundException {
         Product product = productRepository.findById(id).orElseThrow(ProductNotFoundException::new);
-        if (updatedProduct.getName() != null) product.setName(updatedProduct.getName());
-        if (updatedProduct.getDescription() != null) product.setDescription(updatedProduct.getDescription());
-        if (updatedProduct.getPrice() != null) product.setPrice(updatedProduct.getPrice());
-        if (updatedProduct.getGroupId() != null) product.setGroup(groupRepository.findById(updatedProduct.getGroupId()).orElseThrow(GroupNotFoundException::new));
+        if (updatedProduct.getName() != null) {
+            product.setName(updatedProduct.getName());
+        }
+        if (updatedProduct.getDescription() != null) {
+            product.setDescription(updatedProduct.getDescription());
+        }
+        if (updatedProduct.getPrice() != null) {
+            product.setPrice(updatedProduct.getPrice());
+        }
+        if (updatedProduct.getGroupId() != null) {
+            product.setGroup(groupRepository.findById(updatedProduct.getGroupId()).orElseThrow(GroupNotFoundException::new));
+        }
 
         return productRepository.save(product);
     }

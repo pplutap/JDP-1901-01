@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 
 @Component
 public class ProductMapper {
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
     @Autowired
     public ProductMapper(GroupRepository groupRepository) {
         this.groupRepository = groupRepository;
     }
 
-    public Product mapToProduct(ProductDto productDto) throws GroupNotFoundException{
+    public Product mapToProduct(ProductDto productDto) {
         return new Product(productDto.getName(), productDto.getDescription(), productDto.getPrice(),
                 groupRepository.findById(productDto.getGroupId()).orElseThrow(GroupNotFoundException::new));
     }
