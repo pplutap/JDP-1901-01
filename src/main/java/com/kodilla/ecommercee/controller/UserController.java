@@ -25,7 +25,7 @@ public class UserController {
 
     @PostMapping("addUser")
     public void addUser(@RequestBody UserDto userDto) {
-        userService.saveUser(userMapper.mapToUser(userDto));
+        userService.addUser(userMapper.mapToUser(userDto));
     }
 
     @PatchMapping("banUser")
