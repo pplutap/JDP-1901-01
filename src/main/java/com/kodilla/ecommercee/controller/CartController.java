@@ -1,52 +1,51 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Product;
-import com.kodilla.ecommercee.exception.CartNotFoundException;
-import com.kodilla.ecommercee.domain.dto.OrderDto;
-import com.kodilla.ecommercee.domain.dto.CartDto;
-import com.kodilla.ecommercee.mapper.CartMapper;
+import com.kodilla.ecommercee.domain.dto.ProductDto;
+import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.service.CartService;
+import com.kodilla.ecommercee.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/carts")
+@RequestMapping("/cart")
 public class CartController {
-    private final CartMapper cartMapper;
+    private final CartService cartService;
+    private final ProductMapper productMapper;
+    private final ProductService productService;
 
     @Autowired
-    public CartController(CartMapper cartMapper) {
-        this.cartMapper = cartMapper;
+    public CartController(CartService cartService,
+                          ProductMapper productMapper, ProductService productService) {
+        this.cartService = cartService;
+        this.productMapper = productMapper;
+        this.productService = productService;
     }
 
-    @GetMapping(value = "getProductsInCart/{id}")
-    public CartDto getProductsInCart(@PathVariable("id") long cartId) throws CartNotFoundException {
-        List<Product> products = new ArrayList<>();
-        products.add(new Product("banan", "żółty banan", new BigDecimal("12,33")));
-        products.add(new Product("winogrono", "białe winogrono", new BigDecimal("33,33")));
-        return new CartDto(cartId, products);
+    @GetMapping
+    public List<ProductDto> getProductsInCart(HttpServletRequest request) {
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        if (cart == null) {
+            cart = cartService.addCart(new Cart());
+        }
+        return productMapper.mapToProductDtoList(cart.getProducts());
     }
 
-    @PutMapping(value = "updateCart")
-    public CartDto updateCart(@RequestBody CartDto cartDto) {
-        return cartDto;
+    @PostMapping
+    public List<Product> addProductsToCart(@RequestBody List<ProductDto> products, HttpServletRequest request) {
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        return cartService.addProducts(productMapper.mapToProductList(products), cart);
     }
 
-    @DeleteMapping(value = "removeProductFromCart/{cart_id}/{product_id}")
-    public void removeProductFromCart(@PathVariable("cart_id") long cartId, @PathVariable("product_id") long productId) {
-
+    @DeleteMapping("/{product_id}")
+    public void removeProductFromCart(@PathVariable("product_id") long productId, HttpServletRequest request) {
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        cart.getProducts().remove(productService.getProductById(productId));
     }
 
-    @PostMapping(value = "createOrder/{cart_id}")
-    public OrderDto createOrder(@PathVariable("cart_id")long cartId) {
-        return new OrderDto();
-    }
-
-    @PostMapping(value = "createCart")
-    public CartDto addCart() {
-        return new CartDto(1, new ArrayList<>());
-    }
 }

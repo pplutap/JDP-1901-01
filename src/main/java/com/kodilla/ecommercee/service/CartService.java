@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.Cart;
+import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.exception.CartNotFoundException;
 import com.kodilla.ecommercee.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,12 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
+    public Cart saveCart(Cart cart) {
+        return cartRepository.save(cart);
+    }
 
+    public List<Product> addProducts(List<Product> products, Cart cart) {
+        products.stream().map(product -> cart.getProducts().add(product));
+        return saveCart(cart).getProducts();
+    }
 }

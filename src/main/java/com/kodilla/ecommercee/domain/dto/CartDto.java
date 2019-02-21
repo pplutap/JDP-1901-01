@@ -24,7 +24,7 @@ public class CartDto {
         return products;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

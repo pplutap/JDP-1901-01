@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="CARTS")
+@Table(name = "CARTS")
 public class Cart {
     private long id;
     private List<Product> products = new ArrayList<>();
 
-    public Cart() {}
+    public Cart() {
+    }
 
-    public Cart(Long id, List<Product> products) {
+    public Cart(long id, List<Product> products) {
         this.id = id;
         this.products = products;
     }

@@ -35,4 +35,12 @@ public class ProductMapper {
                         product.getDescription(), product.getPrice(), product.getGroup().getId()))
                 .collect(Collectors.toList());
     }
+
+    public List<Product> mapToProductList(List<ProductDto> products) {
+        return products.stream()
+                .map(productDto -> new Product(productDto.getId(), productDto.getName(),
+                        productDto.getDescription(), productDto.getPrice(),
+                        groupRepository.findById(productDto.getGroupId()).orElseThrow(GroupNotFoundException::new)))
+                .collect(Collectors.toList());
+    }
 }
