@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
@@ -32,9 +33,11 @@ public class CartController {
 
     @GetMapping
     public CartDto getProductsInCart(HttpServletRequest request) {
-        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) {
             cart = cartService.addCart(new Cart());
+            session.setAttribute("cart", cart);
         }
         return cartMapper.mapToCartDto(cart);
     }
