@@ -1,8 +1,9 @@
 package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.Cart;
-import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.domain.dto.CartDto;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
+import com.kodilla.ecommercee.mapper.CartMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
 import com.kodilla.ecommercee.service.CartService;
 import com.kodilla.ecommercee.service.ProductService;
@@ -16,30 +17,32 @@ import java.util.List;
 @RequestMapping("/cart")
 public class CartController {
     private final CartService cartService;
+    private final CartMapper cartMapper;
     private final ProductMapper productMapper;
     private final ProductService productService;
 
     @Autowired
-    public CartController(CartService cartService,
+    public CartController(CartService cartService, CartMapper cartMapper,
                           ProductMapper productMapper, ProductService productService) {
         this.cartService = cartService;
+        this.cartMapper = cartMapper;
         this.productMapper = productMapper;
         this.productService = productService;
     }
 
     @GetMapping
-    public List<ProductDto> getProductsInCart(HttpServletRequest request) {
+    public CartDto getProductsInCart(HttpServletRequest request) {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         if (cart == null) {
             cart = cartService.addCart(new Cart());
         }
-        return productMapper.mapToProductDtoList(cart.getProducts());
+        return cartMapper.mapToCartDto(cart);
     }
 
     @PostMapping
-    public List<Product> addProductsToCart(@RequestBody List<ProductDto> products, HttpServletRequest request) {
+    public CartDto addProductsToCart(@RequestBody List<ProductDto> products, HttpServletRequest request) {
         Cart cart = (Cart) request.getSession().getAttribute("cart");
-        return cartService.addProducts(productMapper.mapToProductList(products), cart);
+        return cartMapper.mapToCartDto(cartService.addProducts(productMapper.mapToProductList(products), cart));
     }
 
     @DeleteMapping("/{product_id}")

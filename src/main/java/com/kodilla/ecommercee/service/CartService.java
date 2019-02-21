@@ -35,8 +35,8 @@ public class CartService {
         return cartRepository.save(cart);
     }
 
-    public List<Product> addProducts(List<Product> products, Cart cart) {
+    public Cart addProducts(List<Product> products, Cart cart) {
         products.stream().map(product -> cart.getProducts().add(product));
-        return saveCart(cart).getProducts();
+        return saveCart(cart);
     }
 }
