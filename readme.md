@@ -1,4 +1,5 @@
-#1. PROJECT DESCRIPTION
+#1. PROJECT DESCRIPTION#
+
 Project contains backend mechanics for the online store.
 
 #2. DEMO#
