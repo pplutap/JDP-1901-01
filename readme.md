@@ -2,7 +2,8 @@
 
 Project contains backend mechanics for the online store.
 
-#2. DEMO#
+#2. DEMO
+
 Not available yet
 
 #3. REQUIREMENTS
