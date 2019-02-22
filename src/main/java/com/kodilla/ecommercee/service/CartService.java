@@ -36,7 +36,7 @@ public class CartService {
     }
 
     public Cart addProducts(List<Product> products, Cart cart) {
-        products.stream().map(product -> cart.getProducts().add(product));
+        products.stream().forEach(product -> cart.getProducts().add(product));
         return saveCart(cart);
     }
 }
