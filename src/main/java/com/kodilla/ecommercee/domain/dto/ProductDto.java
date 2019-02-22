@@ -1,5 +1,7 @@
 package com.kodilla.ecommercee.domain.dto;
 
+import com.kodilla.ecommercee.domain.Group;
+
 import java.math.BigDecimal;
 
 public class ProductDto {
