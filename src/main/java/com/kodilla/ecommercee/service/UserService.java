@@ -27,20 +27,16 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getUserById(long id) throws UserNotFoundException {
-        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-    }
-
-    public User banUser(UserDto userDtoBanned) throws UserNotFoundException {
-        User user = userRepository.findById(userDtoBanned.getId()).orElseThrow(UserNotFoundException::new);
+    public User banUser(long id) {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
         user.setStatus("banned");
 
         return userRepository.save(user);
     }
 
-    public User generateKey(UserDto userDto) throws UserNotFoundException {
-        User user = userRepository.findById(userDto.getId()).orElseThrow(UserNotFoundException::new);
+    public User generateKey(long id) {
+        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
         long key = new Random().nextLong() + user.getId();
 
