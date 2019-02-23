@@ -8,7 +8,6 @@ import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.service.OrderService;
 import com.kodilla.ecommercee.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,14 +31,13 @@ public class OrderController {
         return orderMapper.mapToOrderDtoList(orderService.getOrderList());
     }
 
-    @GetMapping(value = "getOrder/{id}")
+    @GetMapping(value = "{id}")
     public OrderDto getOrder(@PathVariable("id") Long orderId) throws OrderNotFoundException {
         return orderMapper.mapToOrderDto(orderService.getOrderById(orderId));
     }
 
     @PostMapping(value = "addOrder/{cartId}/{userId}")
-    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR, reason = "User or Cart not Found")
-    public void addOrder(@RequestParam long cartId, @RequestParam long userId) throws UserNotFoundException, CartNotFoundException {
+    public void addOrder(@PathVariable("cartId") long cartId, @PathVariable("userId") long userId) throws UserNotFoundException, CartNotFoundException {
         orderService.addOrder(cartId, userId);
     }
 
