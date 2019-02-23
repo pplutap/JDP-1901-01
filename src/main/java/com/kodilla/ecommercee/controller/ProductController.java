@@ -2,17 +2,13 @@ package com.kodilla.ecommercee.controller;
 
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
+import com.kodilla.ecommercee.service.FileStorageService;
 import com.kodilla.ecommercee.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -20,11 +16,13 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
+    private final FileStorageService storageService;
 
     @Autowired
-    public ProductController(ProductService productService, ProductMapper productMapper) {
+    public ProductController(ProductService productService, ProductMapper productMapper, FileStorageService storageService) {
         this.productService = productService;
         this.productMapper = productMapper;
+        this.storageService = storageService;
     }
 
     @GetMapping
@@ -50,5 +48,11 @@ public class ProductController {
     @DeleteMapping(value = "{id}")
     public void deleteProduct(@PathVariable("id") Long productId) {
         productService.deleteProduct(productId);
+    }
+
+    @PostMapping("/uploadFile")
+    public void uploadFile(@RequestParam("file") MultipartFile file) {
+        Path filePath = storageService.storeFile(file);
+        System.out.println(filePath);
     }
 }
