@@ -1,14 +1,18 @@
 package com.kodilla.ecommercee.domain.dto;
 
-import com.kodilla.ecommercee.domain.Group;
+import com.opencsv.bean.CsvBindByName;
 
 import java.math.BigDecimal;
 
 public class ProductDto {
     private Long id;
+    @CsvBindByName(column = "Name")
     private String name;
+    @CsvBindByName(column = "Description")
     private String description;
+    @CsvBindByName(column = "Price")
     private BigDecimal price;
+    @CsvBindByName(column = "Group")
     private Long groupId;
 
     public ProductDto() {

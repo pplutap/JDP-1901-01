@@ -3,34 +3,26 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.domain.Product;
 import com.kodilla.ecommercee.domain.dto.ProductDto;
 import com.kodilla.ecommercee.mapper.ProductMapper;
-import com.kodilla.ecommercee.service.FileStorageService;
+import com.kodilla.ecommercee.service.FileService;
 import com.kodilla.ecommercee.service.ProductService;
-import com.opencsv.CSVReader;
-import com.opencsv.bean.CsvToBean;
-import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
     private final ProductMapper productMapper;
-    private final FileStorageService storageService;
+    private final FileService fileService;
 
     @Autowired
-    public ProductController(ProductService productService, ProductMapper productMapper, FileStorageService storageService) {
+    public ProductController(ProductService productService, ProductMapper productMapper, FileService fileService) {
         this.productService = productService;
         this.productMapper = productMapper;
-        this.storageService = storageService;
+        this.fileService = fileService;
     }
 
     @GetMapping
@@ -59,34 +51,11 @@ public class ProductController {
     }
 
     @PostMapping("/uploadFile")
-    public void uploadFile(@RequestParam("file") MultipartFile file) {
-        Path filePath = storageService.storeFile(file);
-        System.out.println(filePath);
+    public void addProductsFromUploadedFile(@RequestParam("file") MultipartFile file) {
+        List<Product> products = productMapper.mapCsvReaderToProducts(fileService.readCsv(fileService.storeFile(file)));
 
-        Map<String, String> mapping = new HashMap<>();
-        mapping.put("Name", "name");
-        mapping.put("Description", "description");
-        mapping.put("Price", "price");
-        mapping.put("Group", "group");
-
-        HeaderColumnNameTranslateMappingStrategy<Product> strategy =
-                new HeaderColumnNameTranslateMappingStrategy<>();
-        strategy.setType(Product.class);
-        strategy.setColumnMapping(mapping);
-
-        CSVReader csvReader = null;
-        try {
-            csvReader = new CSVReader(new FileReader(filePath.toString()));
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        CsvToBean csvToBean = new CsvToBean();
-
-        List<Product> list = csvToBean.parse(strategy, csvReader);
-
-        for (Product e : list) {
-            System.out.println(e);
+        for (Product p : products) {
+            productService.addProduct(p);
         }
     }
 }
