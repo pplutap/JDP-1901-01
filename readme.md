@@ -7,6 +7,7 @@ Project contains backend mechanics for the online store.
 Not available yet
 
 # 3. REQUIREMENTS
+
 - Java 8
 - MySQL database
 
