@@ -1,9 +1,7 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.exception.FileStorageException;
-import com.kodilla.ecommercee.property.FileStorageProperties;
 import com.opencsv.CSVReader;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,10 +19,8 @@ public class FileService {
 
     private final Path fileLocation;
 
-    @Autowired
-    public FileService(FileStorageProperties fileStorageProperties) {
-        this.fileLocation = Paths.get(fileStorageProperties.getUploadDir())
-                .toAbsolutePath().normalize();
+    public FileService() {
+        this.fileLocation = Paths.get("/uploads").toAbsolutePath().normalize();
 
         try {
             Files.createDirectories(this.fileLocation);
