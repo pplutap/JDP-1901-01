@@ -10,11 +10,9 @@ Not available yet
 - Java 8
 - MySQL database
 
-# 4. RUNNING PROJECT
+# 4. ENDPOINTS
 
-# 5. ENDPOINTS
-
-## 5.1. PRODUCTS
+## 4.1. PRODUCTS
 
 Endpoints require ProductDto objects. ProductDto represents product.spec.json:
 >       {
@@ -25,28 +23,28 @@ Endpoints require ProductDto objects. ProductDto represents product.spec.json:
 >           "groupId": 4
 >       } 
 
-### 5.1.1 products (GET)
+### 4.1.1 products (GET)
 
 Returns a list of ProductDto objects
 
-### 5.1.2. products/{id} (GET)
+### 4.1.2. products/{id} (GET)
 
 Returns a ProductDto of a product with provided id number
 
-### 5.1.3. products (POST)
+### 4.1.3. products (POST)
 
 Creates new product in database, requires ProductDto body. Id is generated automatically, so in post method id field can be skipped in json.  
 
-### 5.1.4 products/{id} (PATCH)
+### 4.1.4 products/{id} (PATCH)
 
 Updates existing product. Requires id of the updated product and ProductDto body containing updated information
 
-### 5.1.5 products/{id} (DELETE)
+### 4.1.5 products/{id} (DELETE)
 
 Deletes product of given id from database
 
 
-## 5.2. GROUPS
+## 4.2. GROUPS
 
 Endpoints require GroupDto objects. GroupDto represents product.spec.json: 
 >
@@ -56,24 +54,24 @@ Endpoints require GroupDto objects. GroupDto represents product.spec.json:
 >        "name": "item",
 >     }
 
-### 5.1.1 groups (GET)
+### 4.1.1 groups (GET)
 
 Returns a list of GroupDto objects
 
-### 5.1.2 groups/{id} (GET)
+### 4.1.2 groups/{id} (GET)
 
 Returns a GroupDto object of a group with provided id number
 
-### 5.1.3 groups (POST)
+### 4.1.3 groups (POST)
 
 Creates new product in database, requires GroupDto body. Id is generated automatically, so in post method id field can be skipped in json.
 
-### 5.1.4 products/{id} (PATCH)
+### 4.1.4 products/{id} (PATCH)
 
 Updates existing product group. Requires id of the updated product and ProductDto body containing updated information.
 
 
-## 5.3. CARTS
+## 4.3. CARTS
 
 Endpoints require CartDto objects. CartDto represents cart.spec.json:
 
@@ -95,42 +93,42 @@ Endpoints require CartDto objects. CartDto represents cart.spec.json:
 >        "groupId": "3"
 >     }
 
-### 5.3.1 cart (GET)
+### 4.3.1 cart (GET)
 
 Returns a CartDto of a cart. If current cart is null, creates new one. Requires HttpServletRequest.
 
-### 5.3.2 cart (POST)
+### 4.3.2 cart (POST)
 
 Adds products to the cart and returns CartDto. Requires a list of ProductDto and HttpServletRequest. 
 
-### 5.3.3 cart/{productId} (DELETE)
+### 4.3.3 cart/{productId} (DELETE)
 
 Removes product of given id from the cart, returning no value. Requires product id and HttpServletRequest.
 
-## 5.4. ORDERS
+## 4.4. ORDERS
 
 
-### 5.4.1 orders (GET)
+### 4.4.1 orders (GET)
 
 Returns a list of OrderDto objects.
 
-### 5.4.2 orders/{id} (GET)
+### 4.4.2 orders/{id} (GET)
 
 Returns an OrderDto of the order with given id. Requires order id.
 
-### 5.4.3 orders/{cartId}/{userId} (POST)
+### 4.4.3 orders/{cartId}/{userId} (POST)
 
 Creates an order based on provided cart id and user id, no return type. Requires cart id and user id.
 
-### 5.4.4 orders (PATCH)
+### 4.4.4 orders (PATCH)
 
 Updates order, no return type. Requires OrderDto with updated values.
 
-### 5.4.5 orders (DELETE)
+### 4.4.5 orders (DELETE)
 
 Deletes order from database, no return type. Requires OrderDto.
 
-## 5.5. USERS
+## 4.5. USERS
 
 Endpoints require UserDto objects. UserDto represents users.spec.json:
 >
@@ -142,15 +140,15 @@ Endpoints require UserDto objects. UserDto represents users.spec.json:
 >       }
 >
 
-### 5.5.1 users (POST)
+### 4.5.1 users (POST)
 
 Creates new user, no return type. Requires UserDto.
 
-### 5.5.2 users/{id} (PATCH)
+### 4.5.2 users/{id} (PATCH)
 
 Bans user of given id, returns UserDto. Requires user id.
 
-### 5.5.3 users/key/{id} (PATCH)
+### 4.5.3 users/key/{id} (PATCH)
 
 Generates validation key. Key is valid for 1 hour.
 
