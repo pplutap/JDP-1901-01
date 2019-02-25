@@ -95,12 +95,11 @@ Endpoints require CartDto objects that represent single cart in database. CartDt
 >        "groupId": "3"
 >     }
 
+### 5.3.1 carts/cart (GET)
 
-### 5.3.1
+Creates and returns a CartDto of an empty cart.
 
-Creates an empty cart.
-
-### 5.3.2
+### 5.3.2 
 
 Returns a list of products from the cart.
 
