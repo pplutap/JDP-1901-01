@@ -25,27 +25,27 @@ public class OrderController {
         this.orderMapper = orderMapper;
     }
 
-    @GetMapping(value = "getOrders")
+    @GetMapping
     public List<OrderDto> getOrders() {
         return orderMapper.mapToOrderDtoList(orderService.getOrderList());
     }
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/{id}")
     public OrderDto getOrder(@PathVariable("id") Long orderId) throws OrderNotFoundException {
         return orderMapper.mapToOrderDto(orderService.getOrderById(orderId));
     }
 
-    @PostMapping(value = "addOrder/{cartId}/{userId}")
+    @PostMapping(value = "/{cartId}/{userId}")
     public void addOrder(@PathVariable("cartId") long cartId, @PathVariable("userId") long userId) throws UserNotFoundException, CartNotFoundException {
         orderService.addOrder(cartId, userId);
     }
 
-    @PutMapping(value = "updateOrder")
+    @PutMapping
     public void updateOrder(@RequestBody OrderDto orderDto) {
         orderService.updateOrder(orderMapper.mapToOrder(orderDto));
     }
 
-    @DeleteMapping(value = "deleteOrder")
+    @DeleteMapping
     public void deleteOrder(@RequestBody OrderDto orderDto) {
         orderService.deleteOrder(orderMapper.mapToOrder(orderDto));
     }
