@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.domain.User;
-import com.kodilla.ecommercee.domain.dto.UserDto;
 import com.kodilla.ecommercee.exception.UserNotFoundException;
 import com.kodilla.ecommercee.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +11,7 @@ import java.util.Random;
 
 @Component
 public class UserService {
+    private static final long KEY_GENERATOR = new Random().nextLong();
     private final UserRepository userRepository;
 
     @Autowired
@@ -23,7 +23,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User addUser(User user) {
+    public User addUser(final User user) {
         return userRepository.save(user);
     }
 
@@ -38,9 +38,7 @@ public class UserService {
     public User generateKey(long id) {
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
 
-        long key = new Random().nextLong() + user.getId();
-
-        user.setUserKey(key);
+        user.setUserKey(KEY_GENERATOR);
 
         return userRepository.save(user);
     }
