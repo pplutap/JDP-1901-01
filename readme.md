@@ -16,7 +16,7 @@ Not available yet
 
 ## 5.1. PRODUCTS
 
-Endpoints require ProductDto objects that represent single product in database. ProductDto represents product.spec.json:
+Endpoints require ProductDto objects. ProductDto represents product.spec.json:
 >       {
 >           "id": 1,
 >           "name": "product name",
@@ -48,7 +48,7 @@ Deletes product of given id from database
 
 ## 5.2. GROUPS
 
-Endpoints require GroupDto objects that represent single product group (category) in database. GroupDto represents product.spec.json: 
+Endpoints require GroupDto objects. GroupDto represents product.spec.json: 
 >
 >
 >     {
@@ -75,7 +75,7 @@ Updates existing product group. Requires id of the updated product and ProductDt
 
 ## 5.3. CARTS
 
-Endpoints require CartDto objects that represent single cart in database. CartDto represents cart.spec.json:
+Endpoints require CartDto objects. CartDto represents cart.spec.json:
 
 >
 >
@@ -95,63 +95,62 @@ Endpoints require CartDto objects that represent single cart in database. CartDt
 >        "groupId": "3"
 >     }
 
-### 5.3.1 carts/cart (GET)
+### 5.3.1 cart (GET)
 
-Creates and returns a CartDto of an empty cart.
+Returns a CartDto of a cart. If current cart is null, creates new one. Requires HttpServletRequest.
 
-### 5.3.2 
+### 5.3.2 cart (POST)
 
-Returns a list of products from the cart.
+Adds products to the cart and returns CartDto. Requires a list of ProductDto and HttpServletRequest. 
 
-### 5.3.3
+### 5.3.3 cart/{productId} (DELETE)
 
-Adds product to the cart
-
-### 5.3.4
-
-Removes product from the cart
-
-### 5.3.5 
-
-Creates an order based on the cart
+Removes product of given id from the cart, returning no value. Requires product id and HttpServletRequest.
 
 ## 5.4. ORDERS
 
-### 5.4.1
 
-Returns a list of all orders
+### 5.4.1 orders (GET)
 
-### 5.4.2
+Returns a list of OrderDto objects.
 
-Adds a new order to the database
+### 5.4.2 orders/{id} (GET)
 
-### 5.4.3
+Returns an OrderDto of the order with given id. Requires order id.
 
-Returns given order
+### 5.4.3 orders/{cartId}/{userId} (POST)
 
-### 5.4.4
+Creates an order based on provided cart id and user id, no return type. Requires cart id and user id.
 
-Editing an order
+### 5.4.4 orders (PATCH)
 
-### 5.4.5 
+Updates order, no return type. Requires OrderDto with updated values.
 
-Deleting order from database
+### 5.4.5 orders (DELETE)
+
+Deletes order from database, no return type. Requires OrderDto.
 
 ## 5.5. USERS
 
-### 5.5.1
+Endpoints require UserDto objects. UserDto represents users.spec.json:
+>
+>       {
+>        "id": 1,
+>        "username": "Piotr",
+>        "status": "1",
+>        "userKey": 59403
+>       }
+>
 
-Creating new user in database
+### 5.5.1 users (POST)
 
-### 5.5.2
+Creates new user, no return type. Requires UserDto.
 
-Blocking user
+### 5.5.2 users/{id} (PATCH)
 
-### 5.5.3
+Bans user of given id, returns UserDto. Requires user id.
 
-Generating a validation key lasting 1 hour
+### 5.5.3 users/key/{id} (PATCH)
 
-# 6. USAGE
+Generates validation key. Key is valid for 1 hour.
 
-
-# 7. TROUBLESHOOTING
