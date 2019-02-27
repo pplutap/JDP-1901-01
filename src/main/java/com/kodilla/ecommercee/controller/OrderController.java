@@ -40,7 +40,7 @@ public class OrderController {
         orderService.addOrder(cartId, userId);
     }
 
-    @PutMapping
+    @PatchMapping
     public void updateOrder(@RequestBody OrderDto orderDto) {
         orderService.updateOrder(orderMapper.mapToOrder(orderDto));
     }
